@@ -1,6 +1,6 @@
 FROM openjdk:17-alpine
 
-EXPOSE 8285
+EXPOSE 8282
 
 COPY ./target/device-service-*.jar device-service.jar
 
