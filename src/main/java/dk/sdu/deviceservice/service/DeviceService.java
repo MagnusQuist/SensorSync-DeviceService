@@ -2,7 +2,6 @@ package dk.sdu.deviceservice.service;
 
 import dk.sdu.deviceservice.Entity.Device;
 import dk.sdu.deviceservice.repository.IDeviceRepository;
-import dk.sdu.deviceservice.request.DeviceRequest;
 import dk.sdu.deviceservice.response.DeviceDTO;
 import dk.sdu.deviceservice.util.Utility;
 import io.micrometer.observation.Observation;
@@ -32,15 +31,27 @@ public class DeviceService {
                 .mapToDeviceDTO(repository.findById(uuid).orElseThrow(() -> Utility.notFound(uuid))));
     }
 
-    public DeviceDTO save(DeviceRequest request) {
+    public DeviceDTO save(DeviceDTO request) {
+
         Device device = Device.builder()
-                .name(request.getName())
+                .uuid(request.getUuid())
+                .name("New Device")
+                .online(true)
                 .athena_version(request.getAthena_version())
                 .toit_firmware_version(request.getToit_firmware_version())
+                .device_group("None")
+                .lastPing(new Date())
                 .date_created(new Date())
                 .build();
-        return Observation.createNotStarted("saveDevice", registry)
-                .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
+
+        if (!repository.existsById(device.getUuid())) {
+            // Create device in database if not exists
+            return Observation.createNotStarted("saveDevice", registry)
+                    .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
+        } else {
+            // If device already exists update lastPing
+            return this.updateLastPing(request);
+        }
     }
 
     public String delete(UUID uuid) {
@@ -57,13 +68,22 @@ public class DeviceService {
         return "All devices are removed.";
     }
 
-    public DeviceDTO update(DeviceRequest request) {
+    public DeviceDTO update(DeviceDTO request) {
         Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
 
-        device.setUuid(request.getUuid());
         device.setName(request.getName());
         device.setAthena_version(request.getAthena_version());
         device.setToit_firmware_version(request.getToit_firmware_version());
+        device.setLastPing(new Date());
+
+        return Observation.createNotStarted("updateDevice", registry)
+                .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
+    }
+
+    public DeviceDTO updateLastPing(DeviceDTO request) {
+        Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
+
+        device.setLastPing(new Date());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));

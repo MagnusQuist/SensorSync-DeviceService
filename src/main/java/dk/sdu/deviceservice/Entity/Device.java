@@ -17,15 +17,21 @@ import java.util.UUID;
 @Table(name = "device")
 public class Device {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "uuid")
     private UUID uuid;
     @Column(name = "name")
     private String name;
+    @Column(name = "online")
+    private boolean online;
     @Column(name = "athena_version")
     private String athena_version;
     @Column(name = "toit_firmware_version")
     private String toit_firmware_version;
+    @Column(name = "device_group")
+    private String device_group;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "lastPing")
+    private Date lastPing;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_created")
     private Date date_created;

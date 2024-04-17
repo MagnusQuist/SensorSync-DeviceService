@@ -15,7 +15,10 @@ import java.util.UUID;
 public class DeviceDTO {
     private UUID uuid;
     private String name;
+    private boolean online;
     private String athena_version;
     private String toit_firmware_version;
+    private String device_group;
+    private Date lastPing;
     private Date date_created;
 }

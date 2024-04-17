@@ -1,6 +1,5 @@
 package dk.sdu.deviceservice.controller;
 
-import dk.sdu.deviceservice.request.DeviceRequest;
 import dk.sdu.deviceservice.response.DeviceDTO;
 import dk.sdu.deviceservice.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,14 @@ public class DeviceController {
     // CREATE
     @PostMapping("/devices")
     @ResponseStatus(HttpStatus.CREATED)
-    public DeviceDTO save(@RequestBody DeviceRequest device) {
+    public DeviceDTO save(@RequestBody DeviceDTO device) {
         return deviceService.save(device);
     }
 
     // UPDATE
     @PutMapping("/devices/{uuid}")
     @ResponseStatus(HttpStatus.OK)
-    public DeviceDTO update(@RequestBody DeviceRequest device) {
+    public DeviceDTO update(@RequestBody DeviceDTO device) {
         return deviceService.update(device);
     }
 
