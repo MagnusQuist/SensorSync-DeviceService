@@ -43,6 +43,13 @@ public class DeviceController {
         return deviceService.update(device);
     }
 
+    // UPDATE lastPing
+    @PutMapping("/devices/{uuid}/lastping")
+    @ResponseStatus(HttpStatus.OK)
+    public DeviceDTO updateLastPing(@RequestBody DeviceDTO device) {
+        return deviceService.updateLastPing(device);
+    }
+
     // DELETE
     @DeleteMapping("/devices/{uuid}")
     @ResponseStatus(HttpStatus.OK)
