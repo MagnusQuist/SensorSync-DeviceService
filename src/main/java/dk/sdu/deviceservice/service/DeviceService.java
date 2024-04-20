@@ -32,7 +32,7 @@ public class DeviceService {
     }
 
     public DeviceDTO save(DeviceDTO request) {
-
+        System.out.println(request);
         Device device = Device.builder()
                 .uuid(request.getUuid())
                 .name("New Device")
