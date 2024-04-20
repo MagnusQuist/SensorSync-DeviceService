@@ -22,6 +22,8 @@ public class Utility {
                 .name(device.getName())
                 .athena_version(device.getAthena_version())
                 .toit_firmware_version(device.getToit_firmware_version())
+                .last_ping(device.getLast_ping())
+                .online(device.isOnline())
                 .date_created(device.getDate_created())
                 .build();
         log.info("Device details : {}", deviceDTO);

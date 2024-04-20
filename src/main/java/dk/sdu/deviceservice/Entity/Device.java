@@ -30,8 +30,8 @@ public class Device {
     @Column(name = "device_group")
     private String device_group;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "lastPing")
-    private Date lastPing;
+    @Column(name = "last_ping")
+    private Date last_ping;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_created")
     private Date date_created;

@@ -40,7 +40,7 @@ public class DeviceService {
                 .athena_version(request.getAthena_version())
                 .toit_firmware_version(request.getToit_firmware_version())
                 .device_group("None")
-                .lastPing(new Date())
+                .last_ping(new Date())
                 .date_created(new Date())
                 .build();
 
@@ -71,10 +71,9 @@ public class DeviceService {
     public DeviceDTO update(DeviceDTO request) {
         Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
 
-        device.setName(request.getName());
         device.setAthena_version(request.getAthena_version());
         device.setToit_firmware_version(request.getToit_firmware_version());
-        device.setLastPing(new Date());
+        device.setLast_ping(new Date());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
@@ -83,7 +82,7 @@ public class DeviceService {
     public DeviceDTO updateLastPing(DeviceDTO request) {
         Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
 
-        device.setLastPing(new Date());
+        device.setLast_ping(new Date());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
