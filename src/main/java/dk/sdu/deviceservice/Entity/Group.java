@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "group")
+@Table(name = "device_group")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
