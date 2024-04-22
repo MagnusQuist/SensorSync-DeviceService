@@ -1,7 +1,9 @@
 package dk.sdu.deviceservice.service;
 
 import dk.sdu.deviceservice.Entity.Device;
+import dk.sdu.deviceservice.Entity.Group;
 import dk.sdu.deviceservice.repository.IDeviceRepository;
+import dk.sdu.deviceservice.repository.IGroupRepository;
 import dk.sdu.deviceservice.response.DeviceDTO;
 import dk.sdu.deviceservice.util.Utility;
 import io.micrometer.observation.Observation;
@@ -19,6 +21,9 @@ public class DeviceService {
     private IDeviceRepository repository;
 
     @Autowired
+    private IGroupRepository groupRepository;
+
+    @Autowired
     private ObservationRegistry registry;
 
     public List<DeviceDTO> devices() {
@@ -32,14 +37,23 @@ public class DeviceService {
     }
 
     public DeviceDTO save(DeviceDTO request) {
-        System.out.println(request);
+        Group group = null;
+        if (request.getGroupUuid() != null) {
+            group = groupRepository.findById(request.getGroupUuid()).orElseThrow(() -> Utility.notFound(request.getGroupUuid()));
+        }
+
+        String name = request.getName();
+        if (name == null || name.trim().isEmpty()) {
+            name = "New Device";
+        }
+
         Device device = Device.builder()
                 .uuid(request.getUuid())
-                .name("New Device")
+                .name(name)
                 .online(true)
                 .athena_version(request.getAthena_version())
                 .toit_firmware_version(request.getToit_firmware_version())
-                .device_group("None")
+                .group(group)
                 .lastPing(new Date())
                 .date_created(new Date())
                 .build();

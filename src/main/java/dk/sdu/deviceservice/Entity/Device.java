@@ -27,8 +27,9 @@ public class Device {
     private String athena_version;
     @Column(name = "toit_firmware_version")
     private String toit_firmware_version;
-    @Column(name = "device_group")
-    private String device_group;
+    @ManyToOne
+    @JoinColumn(name = "group_uuid")
+    private Group group;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "lastPing")
     private Date lastPing;

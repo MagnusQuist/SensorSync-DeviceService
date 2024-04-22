@@ -5,20 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeviceDTO {
+public class GroupDTO {
     private UUID uuid;
     private String name;
-    private boolean online;
-    private String athena_version;
-    private String toit_firmware_version;
-    private UUID groupUuid;
-    private Date lastPing;
-    private Date date_created;
+    private String location;
 }
