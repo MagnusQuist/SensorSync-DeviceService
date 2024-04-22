@@ -31,8 +31,8 @@ public class Device {
     @JoinColumn(name = "group_uuid")
     private Group group;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "lastPing")
-    private Date lastPing;
+    @Column(name = "last_ping")
+    private Date last_ping;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_created")
     private Date date_created;
