@@ -95,7 +95,11 @@ public class DeviceService {
 
     public DeviceDTO update(DeviceDTO request) {
         Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
-
+        if (request.getGroup_uuid() != null) {
+            Group group = groupRepository.findById(request.getGroup_uuid()).orElseThrow(() -> Utility.notFound(request.getGroup_uuid()));
+            device.setGroup(group);
+        }
+        device.setName(request.getName());
         device.setAthena_version(request.getAthena_version());
         device.setToit_firmware_version(request.getToit_firmware_version());
         device.setLast_ping(new Date());
