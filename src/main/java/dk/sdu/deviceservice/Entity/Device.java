@@ -20,16 +20,16 @@ public class Device {
     @Column(name = "uuid")
     private UUID uuid;
     @Column(name = "name")
-    private String name;
+    private String name = "New Device";
     @Column(name = "online")
-    private boolean online;
+    private boolean online = false;
     @Column(name = "athena_version")
-    private String athena_version;
+    private String athena_version = "Unknown";
     @Column(name = "toit_firmware_version")
-    private String toit_firmware_version;
+    private String toit_firmware_version = "Unknown";
     @ManyToOne
     @JoinColumn(name = "group_uuid")
-    private Group group;
+    private Group group = null;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_ping")
     private Date last_ping;

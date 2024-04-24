@@ -18,7 +18,7 @@ public class DeviceDTO {
     private boolean online;
     private String athena_version;
     private String toit_firmware_version;
-    private UUID groupUuid;
+    private UUID group_uuid;
     private Date last_ping;
     private Date date_created;
 }

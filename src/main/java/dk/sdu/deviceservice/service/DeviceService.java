@@ -2,6 +2,7 @@ package dk.sdu.deviceservice.service;
 
 import dk.sdu.deviceservice.Entity.Device;
 import dk.sdu.deviceservice.Entity.Group;
+import dk.sdu.deviceservice.RequestTypes.SetGroupRequest;
 import dk.sdu.deviceservice.repository.IDeviceRepository;
 import dk.sdu.deviceservice.repository.IGroupRepository;
 import dk.sdu.deviceservice.response.DeviceDTO;
@@ -37,14 +38,15 @@ public class DeviceService {
     }
 
     public DeviceDTO save(DeviceDTO request) {
+        System.out.println("Request: " + request);
         Group group = null;
-        if (request.getGroupUuid() != null) {
-            group = groupRepository.findById(request.getGroupUuid()).orElseThrow(() -> Utility.notFound(request.getGroupUuid()));
+        if (request.getGroup_uuid() != null) {
+            group = groupRepository.findById(request.getGroup_uuid()).orElseThrow(() -> Utility.notFound(request.getGroup_uuid()));
         }
 
         String name = request.getName();
         if (name == null || name.trim().isEmpty()) {
-            name = "New Device";
+            name = "New Device" + new Date();
         }
 
         Device device = Device.builder()
@@ -66,6 +68,15 @@ public class DeviceService {
             // If device already exists update lastPing
             return this.updateLastPing(request);
         }
+    }
+
+    public DeviceDTO updateGroup(UUID uuid, SetGroupRequest group_uuid) {
+        Device device = repository.findById(uuid).orElseThrow(() -> Utility.notFound(uuid));
+        Group group = groupRepository.findById(group_uuid.getGroupUUID()).orElseThrow(() -> Utility.notFound(group_uuid.getGroupUUID()));
+        device.setGroup(group);
+
+        return Observation.createNotStarted("updateDeviceGroup", registry)
+                .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
     }
 
     public String delete(UUID uuid) {

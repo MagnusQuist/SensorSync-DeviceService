@@ -47,4 +47,11 @@ public class GroupController {
     public String delete(@PathVariable UUID uuid) {
         return groupService.delete(uuid);
     }
+
+    // DELETE ALL
+    @DeleteMapping("/groups")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteAll() {
+        return groupService.deleteAll();
+    }
 }
