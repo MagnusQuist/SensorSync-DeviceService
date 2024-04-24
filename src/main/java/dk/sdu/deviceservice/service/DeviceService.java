@@ -110,6 +110,7 @@ public class DeviceService {
     public DeviceDTO updateLastPing(DeviceDTO request) {
         Device device = repository.findById(request.getUuid()).orElseThrow(() -> Utility.notFound(request.getUuid()));
 
+        device.setOnline(true);
         device.setLast_ping(new Date());
 
         return Observation.createNotStarted("updateDevice", registry)
