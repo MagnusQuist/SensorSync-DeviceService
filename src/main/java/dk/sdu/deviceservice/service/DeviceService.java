@@ -102,7 +102,6 @@ public class DeviceService {
         device.setName(request.getName());
         device.setAthena_version(request.getAthena_version());
         device.setToit_firmware_version(request.getToit_firmware_version());
-        device.setLast_ping(new Date());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
