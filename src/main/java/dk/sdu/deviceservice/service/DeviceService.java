@@ -112,6 +112,7 @@ public class DeviceService {
 
         device.setOnline(true);
         device.setLast_ping(new Date());
+        device.setToit_firmware_version(request.getToit_firmware_version());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
