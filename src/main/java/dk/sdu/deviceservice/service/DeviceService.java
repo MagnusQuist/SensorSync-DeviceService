@@ -46,7 +46,7 @@ public class DeviceService {
 
         String name = request.getName();
         if (name == null || name.trim().isEmpty()) {
-            name = "New Device" + new Date();
+            name = "New Device " + new Date();
         }
 
         Device device = Device.builder()
