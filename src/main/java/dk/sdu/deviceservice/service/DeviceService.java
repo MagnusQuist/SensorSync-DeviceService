@@ -39,7 +39,7 @@ public class DeviceService {
     }
 
     public DeviceDTO save(DeviceDTO request) {
-        System.out.println("Request: " + request);
+        System.out.println("Request:  " + request);
         Group group = null;
         if (request.getGroup_uuid() != null) {
             group = groupRepository.findById(request.getGroup_uuid()).orElseThrow(() -> Utility.notFound(request.getGroup_uuid()));
