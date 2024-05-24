@@ -49,7 +49,8 @@ public class DeviceService {
         String name = request.getName();
         if (name == null || name.trim().isEmpty()) {
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-            formatter.setTimeZone(TimeZone.getDefault());
+            TimeZone danishTimeZone = TimeZone.getTimeZone("Europe/Copenhagen");
+            formatter.setTimeZone(danishTimeZone);
             name = "New Device " + formatter.format(new Date());
         }
 
