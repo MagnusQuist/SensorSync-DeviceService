@@ -27,6 +27,10 @@ public class Device {
     private String athena_version = "Unknown";
     @Column(name = "toit_firmware_version")
     private String toit_firmware_version = "Unknown";
+    @Column(name = "ip_address")
+    private String ip_address = "Unknown";
+    @Column(name = "jaguar_port")
+    private int jaguar_port = 9000;
     @ManyToOne
     @JoinColumn(name = "group_uuid")
     private Group group = null;

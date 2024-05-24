@@ -55,6 +55,8 @@ public class DeviceService {
                 .online(true)
                 .athena_version(request.getAthena_version())
                 .toit_firmware_version(request.getToit_firmware_version())
+                .ip_address(request.getIp_address())
+                .jaguar_port(request.getJaguar_port())
                 .group(group)
                 .last_ping(new Date())
                 .date_created(new Date())
@@ -102,6 +104,7 @@ public class DeviceService {
         device.setName(request.getName());
         device.setAthena_version(request.getAthena_version());
         device.setToit_firmware_version(request.getToit_firmware_version());
+        device.setIp_address(request.getIp_address());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));
@@ -113,6 +116,7 @@ public class DeviceService {
         device.setOnline(true);
         device.setLast_ping(new Date());
         device.setToit_firmware_version(request.getToit_firmware_version());
+        device.setIp_address(request.getIp_address());
 
         return Observation.createNotStarted("updateDevice", registry)
                 .observe(() -> Utility.mapToDeviceDTO(repository.save(device)));

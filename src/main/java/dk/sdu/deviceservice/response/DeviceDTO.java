@@ -1,5 +1,6 @@
 package dk.sdu.deviceservice.response;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class DeviceDTO {
     private boolean online;
     private String athena_version;
     private String toit_firmware_version;
+    private String ip_address;
+    private int jaguar_port;
     private UUID group_uuid;
     private Date last_ping;
     private Date date_created;
