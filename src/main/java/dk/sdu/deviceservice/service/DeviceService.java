@@ -12,6 +12,7 @@ import io.micrometer.observation.ObservationRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -46,7 +47,8 @@ public class DeviceService {
 
         String name = request.getName();
         if (name == null || name.trim().isEmpty()) {
-            name = "New Device " + new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            name = "New Device " + formatter.format(new Date());
         }
 
         Device device = Device.builder()
