@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @Service
@@ -48,6 +49,7 @@ public class DeviceService {
         String name = request.getName();
         if (name == null || name.trim().isEmpty()) {
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getDefault());
             name = "New Device " + formatter.format(new Date());
         }
 

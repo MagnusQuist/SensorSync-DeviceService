@@ -28,6 +28,8 @@ public class Utility {
                 .name(device.getName())
                 .athena_version(device.getAthena_version())
                 .toit_firmware_version(device.getToit_firmware_version())
+                .ip_address(device.getIp_address())
+                .jaguar_port(device.getJaguar_port())
                 .last_ping(device.getLast_ping())
                 .online(device.isOnline())
                 .date_created(device.getDate_created())
