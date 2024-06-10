@@ -1,6 +1,7 @@
 package dk.sdu.deviceservice.controller;
 
 import dk.sdu.deviceservice.RequestTypes.SetGroupRequest;
+import dk.sdu.deviceservice.feign.MessageServiceInterface;
 import dk.sdu.deviceservice.response.DeviceDTO;
 import dk.sdu.deviceservice.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class DeviceController {
     @Autowired
     DeviceService deviceService;
 
+    @Autowired
+    MessageServiceInterface messageServiceInterface;
+
     // GET ALL
     @GetMapping("/devices")
     @ResponseStatus(HttpStatus.OK)
@@ -28,6 +32,13 @@ public class DeviceController {
     @ResponseStatus(HttpStatus.OK)
     public DeviceDTO getDevice(@PathVariable UUID uuid) {
         return deviceService.device(uuid);
+    }
+
+    // IDENTIFY DEVICE
+    @GetMapping("/devices/{uuid}/identify")
+    @ResponseStatus(HttpStatus.OK)
+    public void identifyDevice(@PathVariable UUID uuid) {
+        messageServiceInterface.indetifyDevice(uuid);
     }
 
     // CREATE
