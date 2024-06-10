@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @FeignClient("MESSAGE-SERVICE")
 public interface MessageServiceInterface {
-    @GetMapping("api/v1/mqtt/device/identify")
+    @GetMapping("api/v1/mqtt/{uuid}/identify")
     @ResponseStatus(HttpStatus.OK)
     void indetifyDevice(@PathVariable UUID uuid);
 }
